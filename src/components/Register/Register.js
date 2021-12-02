@@ -1,58 +1,41 @@
-function Register() {
-  return (
-    <div
-      className="modal modal-signin position-static d-block bg-secondary py-5"
-      tabIndex="-1"
-      role="dialog"
-      id="modalSignin"
-    >
-      <div className="modal-dialog" role="document">
-        <div className="modal-content rounded-5 shadow">
-          <div className="modal-header p-5 pb-4 border-bottom-0">
-            <h2 className="fw-bold mb-0">Sign up htmlFor free</h2>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
+function Login(){
+    
+  
+  return(
 
-          <div className="modal-body p-5 pt-0">
-            <form className="">
-              <div className="form-floating mb-3">
-                <input
-                  type="email"
-                  className="form-control rounded-4"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label htmlFor="floatingInput">Email address</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="password"
-                  className="form-control rounded-4"
-                  id="floatingPassword"
-                  placeholder="Password"
-                />
-                <label htmlFor="floatingPassword">Password</label>
-              </div>
-              <button
-                className="w-100 mb-2 btn btn-lg rounded-4 btn-primary"
-                type="submit"
-              >
-                Sign up
-              </button>
-              <small className="text-muted">
+  <div className="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div className="row align-items-center g-lg-5 py-5">
+      <div className="col-lg-7 text-center text-lg-start">
+        <h1 className="display-4 fw-bold lh-1 mb-3">Welcome to Photography World</h1>
+        <p className="col-lg-10 fs-4">Feel free to join us and start uploading images!</p>
+      </div>
+      <div className="col-md-10 mx-auto col-lg-5">
+        <form className="p-4 p-md-5 border rounded-3 bg-light">
+          <div className="form-floating mb-3">
+            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
+            <label htmlFor="floatingInput">Email address</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
+            <label htmlFor="floatingPassword">Create Password</label>
+          </div>
+          <div className="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"/> Remember me
+            </label>
+          </div>
+          <button className="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+          <hr className="my-4"/>
+          
+          <small className="text-muted">
                 By clicking Sign up, you agree to the terms of use.
               </small>
-            </form>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
-  );
+  </div>
+
+    );
 }
 
-export default Register;
+export default Login;
