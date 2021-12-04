@@ -1,4 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import AuthContext from "../../store/auth-context";
 import LoadingSpinner from "../Layout/LoadingSpinner";
 
 function Register() {
@@ -7,10 +10,13 @@ function Register() {
         background-color: #212529;
     }
 `;
-
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  const authCtx = useContext(AuthContext);
+
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -30,20 +36,26 @@ function Register() {
           "Content-Type": "application/json",
         },
       }
-    ).then((res) => {
-      setIsLoading(false);
-      if (res.ok) {
-        //....TODO
-      } else {
-        res.json().then((data) => {
-          let errorMessage = "Authentication failed!";
-          if (data && data.error && data.error.message) {
-            errorMessage = data.error.message;
-          }
-          alert(errorMessage);
-        });
-      }
-    });
+    )
+      .then((res) => {
+        setIsLoading(false);
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.json().then((data) => {
+            let errorMessage = "Authentication failed!";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        authCtx.login(data.idToken);
+        navigate('/');
+
+      })
+      .catch((error) =>{
+        alert(error.message)
+      });
   };
   return (
     <div

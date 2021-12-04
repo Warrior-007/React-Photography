@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 import logo from "../Files/whiteLogo.png"; // with import
+import AuthContext from "../../store/auth-context";
 
 function Header() {
+  const AuthCtx = useContext(AuthContext);
+  const isLoggedIn = AuthCtx.isLoggedIn;
   return (
     <header className="p-3 bg-dark text-white">
       <div className="container">
@@ -35,12 +39,13 @@ function Header() {
                 All Albums
               </Link>
             </li>
-
-            <li>
-              <Link to="/upload-image" className="nav-link px-2 text-white">
-                Upload Image
-              </Link>
-            </li>
+            {!isLoggedIn && (
+              <li>
+                <Link to="/upload-image" className="nav-link px-2 text-white">
+                  Upload Image
+                </Link>
+              </li>
+            )}
           </ul>
 
           <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -51,18 +56,28 @@ function Header() {
               aria-label="Search"
             />
           </form>
-
           <div className="text-end">
-            <Link to="/login">
-              <button type="button" className="btn btn-outline-light me-2">
-                Login
-              </button>
-            </Link>
-            <Link to="/register">
-              <button type="button" className="btn btn-warning">
-                Sign-up
-              </button>
-            </Link>
+            {!isLoggedIn && (
+              <>
+                <Link to="/login">
+                  <button type="button" className="btn btn-outline-light me-2">
+                    Login
+                  </button>
+                </Link>
+                <Link to="/register">
+                  <button type="button" className="btn btn-warning">
+                    Sign-up
+                  </button>
+                </Link>
+              </>
+            )}
+            {isLoggedIn && (
+
+               <button type="button" className="btn btn-outline-light me-2">
+                 Logout
+               </button>
+            
+            )}
           </div>
         </div>
       </div>
