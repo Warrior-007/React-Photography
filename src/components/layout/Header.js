@@ -4,8 +4,13 @@ import logo from "../Files/whiteLogo.png"; // with import
 import AuthContext from "../../store/auth-context";
 
 function Header() {
-  const AuthCtx = useContext(AuthContext);
-  const isLoggedIn = AuthCtx.isLoggedIn;
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
+
+  const logoutHandler = () =>  {
+    authCtx.logout();
+  }
+
   return (
     <header className="p-3 bg-dark text-white">
       <div className="container">
@@ -39,7 +44,7 @@ function Header() {
                 All Albums
               </Link>
             </li>
-            {!isLoggedIn && (
+            {isLoggedIn && (
               <li>
                 <Link to="/upload-image" className="nav-link px-2 text-white">
                   Upload Image
@@ -73,7 +78,7 @@ function Header() {
             )}
             {isLoggedIn && (
 
-               <button type="button" className="btn btn-outline-light me-2">
+               <button type="button" className="btn btn-outline-light me-2" onClick={logoutHandler}>
                  Logout
                </button>
             

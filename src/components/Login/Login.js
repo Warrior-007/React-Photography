@@ -17,7 +17,6 @@ function Register() {
 
   const authCtx = useContext(AuthContext);
 
-
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
@@ -37,24 +36,26 @@ function Register() {
         },
       }
     )
-      .then((res) => {
+      .then((response) => {
         setIsLoading(false);
-        if (res.ok) {
-          return res.json();
+        if (response.ok) {
+          return response.json();
         } else {
-          res.json().then((data) => {
+          response.json().then((data) => {
             let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken);
-        navigate('/');
-
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        authCtx.login(data.idToken, expirationTime.toISOString());
+        navigate("/");
       })
-      .catch((error) =>{
-        alert(error.message)
+      .catch((error) => {
+        alert(error.message);
       });
   };
   return (

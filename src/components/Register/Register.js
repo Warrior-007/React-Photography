@@ -1,11 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import AuthContext from "../../store/auth-context";
+
 import LoadingSpinner from "../Layout/LoadingSpinner";
 
 function Login() {
+  const navigate = useNavigate();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   const [isLoading, setIsLoading] = useState(false);
+  const authCtx = useContext(AuthContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -25,19 +31,28 @@ function Login() {
           "Content-Type": "application/json",
         },
       }
-    ).then((res) => {
-      setIsLoading(false);
-      if (res.ok) {
-      } else {
-        res.json().then((data) => {
-          let errorMessage = "Authentication failed!";
-          if (data && data.error && data.error.message) {
-            errorMessage = data.error.message;
-          }
-          alert(errorMessage);
-        });
-      }
-    });
+    )
+      .then((res) => {
+        setIsLoading(false);
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.json().then((data) => {
+            let errorMessage = "Authentication failed!";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        authCtx.login(data.idToken, expirationTime.toISOString());
+        navigate("/");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (

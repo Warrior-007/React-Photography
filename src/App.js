@@ -1,5 +1,6 @@
 import "./App.css";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
+import { useContext } from "react";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import AllPicturesPage from "./pages/AllPicturesPage";
@@ -9,8 +10,11 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import UploadImagePage from "./pages/UploadImagePage";
+import AuthContext from "./store/auth-context";
 
 function App() {
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   return (
     <>
       <Header />
@@ -19,9 +23,13 @@ function App() {
         <Route path="/all-images" element={<AllPicturesPage />} />
         <Route path="/all-albums" element={<AllAlbumsPage />} />
         <Route path="/album-information" element={<AlbumPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/upload-image" element={<UploadImagePage />} />
+        {!isLoggedIn && <Route path="/login" element={<LoginPage />} />}
+        {!isLoggedIn && <Route path="/register" element={<RegisterPage />} />}
+
+        {isLoggedIn && (
+          <Route path="/upload-image" element={<UploadImagePage />} />
+        )}
+        <Route path="*" element={<Navigate to ="/" />}/>
       </Routes>
       <Footer />
     </>
