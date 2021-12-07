@@ -100,11 +100,6 @@ function Register() {
                 />
                 <label htmlFor="floatingPassword">Password</label>
               </div>
-              <div className="checkbox mb-3">
-                <label>
-                  <input type="checkbox" value="remember-me" /> Remember me
-                </label>
-              </div>
               <button
                 className="w-100 mb-2 btn btn-lg rounded-4 btn-primary"
                 type="submit"

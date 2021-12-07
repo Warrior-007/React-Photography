@@ -139,3 +139,14 @@
     transform: rotate(360deg);
   }
 }
+
+.card {
+  height: 18rem;
+  width: 80%;
+}
+
+.card img {
+  height: 80%;
+  width: 100%;
+  object-fit: cover;
+} 

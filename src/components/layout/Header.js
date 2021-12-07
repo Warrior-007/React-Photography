@@ -7,9 +7,9 @@ function Header() {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
 
-  const logoutHandler = () =>  {
+  const logoutHandler = () => {
     authCtx.logout();
-  }
+  };
 
   return (
     <header className="p-3 bg-dark text-white">
@@ -38,10 +38,46 @@ function Header() {
                 All Images
               </Link>
             </li>
-
+            {/* 
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link className="dropdown-item" to="/">
+                    Action
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/">
+                    Another action
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/">
+                    Something else here
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/">
+                    Separated link
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            */}
             <li>
               <Link to="/all-albums" className="nav-link px-2 text-white">
-                All Albums
+                Categories
               </Link>
             </li>
             {isLoggedIn && (
@@ -77,11 +113,13 @@ function Header() {
               </>
             )}
             {isLoggedIn && (
-
-               <button type="button" className="btn btn-outline-light me-2" onClick={logoutHandler}>
-                 Logout
-               </button>
-            
+              <button
+                type="button"
+                className="btn btn-outline-light me-2"
+                onClick={logoutHandler}
+              >
+                Logout
+              </button>
             )}
           </div>
         </div>

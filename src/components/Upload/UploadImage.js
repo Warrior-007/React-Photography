@@ -44,7 +44,7 @@ function UploadImage() {
           <option value="Abstract">Abstract photography</option>
         </select>
       </div>
-      <br/>
+      <br />
       <div className="input-group mb-3">
         <input type="file" className="form-control" id="inputGroupFile02" />
         <label className="input-group-text" htmlFor="inputGroupFile02">
