@@ -124,7 +124,7 @@ function UploadImage(props) {
       url: enteredUrl,
     };
 
-    console.log(imageData);
+    props.onAddImage(imageData)
   }
   return (
     <form onSubmit={submitHandler}>
