@@ -14,13 +14,15 @@ const AllAlbumsPage = () => {
       const loadedAlbums = [];
 
       for (const key in responseData) {
+        if(loadedAlbums.category !== responseData[key].category){
+
+        }
         loadedAlbums.push({
           id: key,
           url: responseData[key].url,
           category: responseData[key].category,
         });
       }
-      loadedAlbums.filter();
       setAlbum(loadedAlbums);
     };
     fetchPictures();

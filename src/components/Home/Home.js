@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import homePagePicture from '../Files/homePage.png'; // with import
 
 
@@ -19,23 +19,20 @@ function Home() {
           </div>
           <div className="col-lg-6">
             <h1 className="display-5 fw-bold lh-1 mb-3">
-              Responsive left-aligned hero with image
+              Every moment can be catch in memory forever!
             </h1>
-            <p className="lead">
-              Quickly design and customize responsive mobile-first sites with
-              Bootstrap, the world’s most popular front-end open source toolkit,
-              featuring Sass variables and mixins, responsive grid system,
-              extensive prebuilt components, and powerful JavaScript plugins.
-            </p>
+           <br/>  
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">
+            <Link to="/">
               <button type="button" className="btn btn-primary btn-lg px-4 me-md-2">
-                Primary
+              Start now
               </button>
+              </Link>
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg px-4"
               >
-                Default
+                View all Images
               </button>
             </div>
           </div>
