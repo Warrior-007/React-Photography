@@ -29,7 +29,7 @@ function App() {
         {isLoggedIn && (
           <Route path="/upload-image" element={<UploadImagePage />} />
         )}
-        <Route path="*" element={<Navigate to ="/"/>}/>
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
     </>

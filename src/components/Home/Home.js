@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import homePagePicture from '../Files/homePage.png'; // with import
-
+import homePagePicture from "../Files/homePage.png"; // with import
+import AuthContext from "../../store/auth-context";
 
 function Home() {
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   return (
     <>
       <div className="container col-xxl-8 px-4 py-5">
@@ -21,19 +24,36 @@ function Home() {
             <h1 className="display-5 fw-bold lh-1 mb-3">
               Every moment can be catch in memory forever!
             </h1>
-           <br/>  
+            <br />
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">
-            <Link to="/">
-              <button type="button" className="btn btn-primary btn-lg px-4 me-md-2">
-              Start now
-              </button>
+              {isLoggedIn && (
+                <Link to="/upload-image">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-lg px-4 me-md-2"
+                  >
+                    Start now
+                  </button>
+                </Link>
+              )}
+              {!isLoggedIn && (
+                <Link to="/login">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-lg px-4 me-md-2"
+                  >
+                    Start now
+                  </button>
+                </Link>
+              )}
+              <Link to="/all-images">
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary btn-lg px-4"
+                >
+                  View all Images
+                </button>
               </Link>
-              <button
-                type="button"
-                className="btn btn-outline-secondary btn-lg px-4"
-              >
-                View all Images
-              </button>
             </div>
           </div>
         </div>

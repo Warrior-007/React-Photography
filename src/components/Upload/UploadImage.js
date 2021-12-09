@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 const options = [
@@ -109,6 +111,8 @@ const options = [
 ];
 
 function UploadImage(props) {
+  const navigate = useNavigate();
+
   const nameInputRef = useRef();
   const urlInputRef = useRef();
   const [selectedOption, setSelectedOption] = useState(null);
@@ -124,7 +128,8 @@ function UploadImage(props) {
       url: enteredUrl,
     };
 
-    props.onAddImage(imageData)
+    props.onAddImage(imageData);
+    navigate("/");
   }
   return (
     <form onSubmit={submitHandler}>
