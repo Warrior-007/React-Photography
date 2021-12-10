@@ -67,7 +67,17 @@
   font-size: 1.5rem;
   border-radius: 0.75rem;
 }
-
+a:hover {
+  color: gold !important;
+}
+.fab{
+  color: black;
+  transition: 0.2s;
+}
+.fab:hover{
+  cursor: pointer;
+  color: gold !important;
+}
 .rounded-4 {
   border-radius: 0.5rem;
 }
@@ -149,4 +159,16 @@
   height: 80%;
   width: 100%;
   object-fit: cover;
-} 
+}
+
+.image-blurred-edge {
+  background-image: url("/src/components/Files/homePage.jpg");
+
+  background-size: contain;
+
+  background-repeat: no-repeat;
+  width: 700px;
+  height: 480px;
+  /* you need to match the shadow color to your background or image border for the desired effect*/
+  box-shadow: 0 0 8px 8px white inset;
+}

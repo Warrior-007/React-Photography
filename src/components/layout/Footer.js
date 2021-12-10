@@ -14,9 +14,9 @@ function Footer(){
     </div>
 
     <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li className="ms-3"><i className="fab fa-facebook fa-2x"></i></li>
-      <li className="ms-3"><i className="fab fa-twitter fa-2x"></i></li>
-      <li className="ms-3"><i className="fab fa-instagram fa-2x"></i></li>
+      <li className="ms-3"><a href="https://www.facebook.com/daniel.ilchev2000"><i className="fab fa-facebook fa-2x"></i></a></li>
+      <li className="ms-3"><a href="https://twitter.com/DanielIlchev_47"><i className="fab fa-twitter fa-2x"></i></a></li>
+      <li className="ms-3"><a href="https://www.instagram.com/daniel_ilchev/"><i className="fab fa-instagram fa-2x"></i></a></li>
     </ul>
   </footer>
 </div>

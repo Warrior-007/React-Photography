@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import PicturePreview from "../components/AllPictures/PicturePreview";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 const AllPictures = () => {
   const [pictures, setPictures] = useState([]);
@@ -27,13 +29,15 @@ const AllPictures = () => {
     fetchPictures();
   }, []);
   const picturesList = pictures.map((picture) => (
-    <PicturePreview
-      key={picture.id}
-      id={picture.id}
-      name={picture.name}
-      url={picture.url}
-      category={picture.category}
-    />
+    <Zoom>
+      <PicturePreview
+        key={picture.id}
+        id={picture.id}
+        name={picture.name}
+        url={picture.url}
+        category={picture.category}
+      />
+    </Zoom>
   ));
   return (
     <>

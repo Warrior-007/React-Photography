@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 import PicturePreview from "../components/AllPictures/PicturePreview";
 
 const AllAlbumsPage = () => {
   const [album, setAlbum] = useState([]);
 
+  const handleClick = (e) => {
+    console.log(e.currentTarget.getAttribute("category"));
+    navigate("/album-information");
+  };
+
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPictures = async () => {
       const response = await fetch(
@@ -14,8 +22,12 @@ const AllAlbumsPage = () => {
       const loadedAlbums = [];
 
       for (const key in responseData) {
-        if(loadedAlbums.category !== responseData[key].category){
-
+        if (
+          loadedAlbums.find(
+            (product) => product.category === responseData[key].category
+          )
+        ) {
+          continue;
         }
         loadedAlbums.push({
           id: key,
@@ -27,12 +39,14 @@ const AllAlbumsPage = () => {
     };
     fetchPictures();
   }, []);
+
   const categoryList = album.map((picture) => (
     <PicturePreview
       key={picture.id}
       id={picture.id}
       url={picture.url}
-      category={picture.category}
+      name={picture.category}
+      onClick={handleClick}
     />
   ));
 

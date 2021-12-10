@@ -5,108 +5,108 @@ import Select from "react-select";
 
 const options = [
   {
-    value: "Nature",
-    label: "Nature photography",
+    label: "Nature",
+    value: "Nature photography",
   },
   {
-    value: "Landscape",
-    label: "Landscape photography",
+    label: "Landscape",
+    value: "Landscape photography",
   },
   {
-    value: "Astrophotography",
     label: "Astrophotography",
+    value: "Astrophotography",
   },
   {
-    value: "Storm",
-    label: "Storm photography",
+    label: "Storm",
+    value: "Storm photography",
   },
   {
-    value: "Pet",
-    label: "Pet photography",
+    label: "Pet",
+    value: "Pet photography",
   },
   {
-    value: "Macro",
-    label: "Macro photography",
+    label: "Macro",
+    value: "Macro photography",
   },
   {
-    value: "Flower",
-    label: "Flower photography",
+    label: "Flower",
+    value: "Flower photography",
   },
   {
-    value: "Architecture",
-    label: "Architecture photography",
+    label: "Architecture",
+    value: "Architecture photography",
   },
   {
-    value: "Real",
-    label: "Real estate photography",
+    label: "Real",
+    value: "Real estate photography",
   },
   {
-    value: "Drone",
-    label: "Drone photography",
+    label: "Drone",
+    value: "Drone photography",
   },
   {
-    value: "Aerial",
-    label: "Aerial photography",
+    label: "Aerial",
+    value: "Aerial photography",
   },
   {
-    value: "Portrait",
-    label: "Portrait photography",
+    label: "Portrait",
+    value: "Portrait photography",
   },
   {
-    value: "Headshot",
-    label: "Headshot photography",
+    label: "Headshot",
+    value: "Headshot photography",
   },
   {
-    value: "Fashion",
-    label: "Fashion photography",
+    label: "Fashion",
+    value: "Fashion photography",
   },
   {
-    value: "Sports",
-    label: "Sports photography",
+    label: "Sports",
+    value: "Sports photography",
   },
   {
-    value: "Documentary",
-    label: "Documentary photography",
+    label: "Documentary",
+    value: "Documentary photography",
   },
   {
-    value: "Street",
-    label: "Street photography",
+    label: "Street",
+    value: "Street photography",
   },
   {
-    value: "Wedding",
-    label: "Wedding photography",
+    label: "Wedding",
+    value: "Wedding photography",
   },
   {
-    value: "Food",
-    label: "Food photography",
+    label: "Food",
+    value: "Food photography",
   },
   {
-    value: "Product",
-    label: "Product photography",
+    label: "Product",
+    value: "Product photography",
   },
   {
-    value: "StillLife",
-    label: "Still life photography",
+    label: "StillLife",
+    value: "Still life photography",
   },
   {
-    value: "BlackAndWhite",
-    label: "Black-and-white photography",
+    label: "BlackAndWhite",
+    value: "Black-and-white photography",
   },
   {
-    value: "FineArt",
-    label: "Fine art photography",
+    label: "FineArt",
+    value: "Fine art photography",
   },
   {
-    value: "DoubleExposure",
-    label: "Double exposure photography",
+    label: "DoubleExposure",
+    value: "Double exposure photography",
   },
   {
-    value: "Surreal",
-    label: "Surreal photography",
+    label: "Surreal",
+    value: "Surreal photography",
   },
   {
-    value: "Abstract",
-    label: "Abstract photography",
+    label: "Abstract",
+    value: "Abstract photography",
   },
 ];
 
@@ -119,7 +119,7 @@ function UploadImage(props) {
 
   function submitHandler(event) {
     event.preventDefault();
-
+console.log()
     const enteredName = nameInputRef.current.value;
     const enteredUrl = urlInputRef.current.value;
     const imageData = {
@@ -137,7 +137,7 @@ function UploadImage(props) {
         <h2 className="fw-bold mb-5 mx-auto">Upload your image HERE</h2>
 
         <div className="mb-3">
-          <label htmlFor="imageFormName" className="form-label">
+          <label htmlFor="imageFormName" className="form-value">
             Image Name
           </label>
           <input
@@ -148,7 +148,7 @@ function UploadImage(props) {
             ref={nameInputRef}
           />
         </div>
-        <label className="form-label">Category</label>
+        <label className="form-value">Category</label>
         <div className="input-group mb-3">
           <Select
             defaultValue={selectedOption}
@@ -156,37 +156,37 @@ function UploadImage(props) {
             options={options}
           />
           {/* 
-          <select className="form-select" aria-label="Category select">
-            <option value="Nature">Nature photography</option>
-            <option value="Landscape">Landscape photography</option>
-            <option value="Astrophotography">Astrophotography</option>
-            <option value="Storm">Storm photography</option>
-            <option value="Pet">Pet photography</option>
-            <option value="Macro">Macro photography</option>
-            <option value="Flower">Flower photography</option>
-            <option value="Architecture">Architecture photography</option>
-            <option value="Real">Real estate photography</option>
-            <option value="Drone">Drone photography</option>
-            <option value="Aerial">Aerial photography</option>
-            <option value="Portrait">Portrait photography</option>
-            <option value="Headshot">Headshot photography</option>
-            <option value="Fashion">Fashion photography</option>
-            <option value="Sports">Sports photography</option>
-            <option value="Documentary">Documentary photography</option>
-            <option value="Street">Street photography</option>
-            <option value="Wedding">Wedding photography</option>
-            <option value="Food">Food photography</option>
-            <option value="Product">Product photography</option>
-            <option value="StillLife">Still life photography</option>
-            <option value="BlackAndWhite">Black-and-white photography</option>
-            <option value="FineArt">Fine art photography</option>
-            <option value="DoubleExposure">Double exposure photography</option>
-            <option value="Surreal">Surreal photography</option>
-            <option value="Abstract">Abstract photography</option>
+          <select className="form-select" aria-value="Category select">
+            <option label="Nature">Nature photography</option>
+            <option label="Landscape">Landscape photography</option>
+            <option label="Astrophotography">Astrophotography</option>
+            <option label="Storm">Storm photography</option>
+            <option label="Pet">Pet photography</option>
+            <option label="Macro">Macro photography</option>
+            <option label="Flower">Flower photography</option>
+            <option label="Architecture">Architecture photography</option>
+            <option label="Real">Real estate photography</option>
+            <option label="Drone">Drone photography</option>
+            <option label="Aerial">Aerial photography</option>
+            <option label="Portrait">Portrait photography</option>
+            <option label="Headshot">Headshot photography</option>
+            <option label="Fashion">Fashion photography</option>
+            <option label="Sports">Sports photography</option>
+            <option label="Documentary">Documentary photography</option>
+            <option label="Street">Street photography</option>
+            <option label="Wedding">Wedding photography</option>
+            <option label="Food">Food photography</option>
+            <option label="Product">Product photography</option>
+            <option label="StillLife">Still life photography</option>
+            <option label="BlackAndWhite">Black-and-white photography</option>
+            <option label="FineArt">Fine art photography</option>
+            <option label="DoubleExposure">Double exposure photography</option>
+            <option label="Surreal">Surreal photography</option>
+            <option label="Abstract">Abstract photography</option>
           </select>
           */}
         </div>
-        <label className="form-label">Image URL</label>
+        <label className="form-value">Image URL</label>
         <input
           type="text"
           className="form-control"
