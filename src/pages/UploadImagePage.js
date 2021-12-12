@@ -2,7 +2,6 @@ import UploadImage from "../components/Upload/UploadImage";
 
 const UploadImagePage = () => {
   function addImageHandler(imageData) {
-    console.log(imageData);
     fetch(
       "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
       {
