@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
@@ -119,7 +118,7 @@ function UploadImage(props) {
 
   function submitHandler(event) {
     event.preventDefault();
-console.log()
+
     const enteredName = nameInputRef.current.value;
     const enteredUrl = urlInputRef.current.value;
     const imageData = {
