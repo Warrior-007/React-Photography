@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PicturePreview from "../components/AllPictures/PicturePreview";
-import Zoom from "react-medium-image-zoom";
+
+import { Link } from "react-router-dom";
 import "react-medium-image-zoom/dist/styles.css";
 
 const AllPictures = () => {
@@ -29,7 +30,7 @@ const AllPictures = () => {
     fetchPictures();
   }, []);
   const picturesList = pictures.map((picture) => (
-    <Zoom>
+    <Link to={`/image-information/${picture.id}`}>
       <PicturePreview
         key={picture.id}
         id={picture.id}
@@ -37,7 +38,7 @@ const AllPictures = () => {
         url={picture.url}
         category={picture.category}
       />
-    </Zoom>
+    </Link>
   ));
   return (
     <>

@@ -1,3 +1,9 @@
+h1{
+  text-align: center;
+}
+.card-text{
+  color: black;
+}
 .b-example-divider {
   height: 3rem;
   background-color: rgba(0, 0, 0, 0.1);
@@ -171,4 +177,9 @@ a:hover {
   height: 480px;
   /* you need to match the shadow color to your background or image border for the desired effect*/
   box-shadow: 0 0 8px 8px white inset;
+}
+#search-bar{
+  width: 300px;
+  z-index: 999;
+  margin: 0 15px;
 }

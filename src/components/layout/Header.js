@@ -1,11 +1,47 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo from "../Files/whiteLogo.png"; // with import
 import AuthContext from "../../store/auth-context";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+const handleOnSearch = (string, results) => {
+  // onSearch will have as the first callback parameter
+  // the string searched and for the second the results.
+  console.log(string, results);
+};
+
+const formatResult = (item) => {
+  return item;
+  // return (<p dangerouslySetInnerHTML={{__html: '<strong>'+item+'</strong>'}}></p>); //To format result as html
+};
 
 function Header() {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
+
+  const [picturesNames, setPicturesNames] = useState([]);
+
+  useEffect(() => {
+    const fetchPictures = async () => {
+      const response = await fetch(
+        "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json"
+      );
+      const responseData = await response.json();
+
+      const loadedPicturesNames = [];
+
+      for (const key in responseData) {
+        loadedPicturesNames.push({
+          id: key,
+          name: responseData[key].name,
+        });
+      }
+
+      setPicturesNames(loadedPicturesNames);
+    };
+    fetchPictures();
+  }, []);
+
+  const items = picturesNames;
 
   const logoutHandler = () => {
     authCtx.logout();
@@ -38,43 +74,6 @@ function Header() {
                 All Images
               </Link>
             </li>
-            {/* 
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-                role="button"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link className="dropdown-item" to="/">
-                    Action
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/">
-                    Another action
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/">
-                    Something else here
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/">
-                    Separated link
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            */}
             <li>
               <Link to="/all-albums" className="nav-link px-2 text-white">
                 Categories
@@ -89,14 +88,23 @@ function Header() {
             )}
           </ul>
 
-          <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          {/*<form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input
               type="search"
               className="form-control form-control-dark"
               placeholder="Search..."
               aria-label="Search"
             />
-          </form>
+            </form>*/}
+          <div id="search-bar">
+            <ReactSearchAutocomplete
+              items={items}
+              onSearch={handleOnSearch}
+              autoFocus
+              formatResult={formatResult}
+            />
+          </div>
+
           <div className="text-end">
             {!isLoggedIn && (
               <>

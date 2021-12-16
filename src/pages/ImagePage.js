@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import PicturePreview from "../components/AllPictures/PicturePreview";
-import AlbumInformation from "../components/AllPictures/AlbumInfrormation";
 
 import "react-medium-image-zoom/dist/styles.css";
+import Picture from "../components/AllPictures/Picture";
 
-const AlbumPage = () => {
+const ImagePage = () => {
   const [pictures, setPictures] = useState([]);
-  const categoryObj = useParams();
-  const category = categoryObj[Object.keys(categoryObj)[0]];
+
+  const imageIdObj = useParams();
+  const imageId = imageIdObj[Object.keys(imageIdObj)[0]];
 
   useEffect(() => {
     const fetchPictures = async () => {
@@ -18,48 +18,43 @@ const AlbumPage = () => {
       );
       const responseData = await response.json();
 
-      const loadedPictures = [];
-
+      const loadedPicture = [];
       for (const key in responseData) {
-        if (responseData[key].category === category) {
-          loadedPictures.push({
+        if (key === imageId) {
+          loadedPicture.push({
             key: key,
             id: key,
             name: responseData[key].name,
             url: responseData[key].url,
             category: responseData[key].category,
           });
+          break;
         }
       }
 
-      setPictures(loadedPictures);
+      setPictures(loadedPicture);
     };
     fetchPictures();
-  }, [category]);
+  }, [imageId]);
 
   const picturesList = pictures.map((picture) => (
-    <Link to={`/image-information/${picture.id}`}>
-      <PicturePreview
+    
+      <Picture
         key={picture.id}
         id={picture.id}
         name={picture.name}
         url={picture.url}
         category={picture.category}
       />
-    </Link>
   ));
   return (
     <>
-      <AlbumInformation name={category} />
-
       <div className="album py-5 bg-light">
         <div className="container">
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {picturesList}
-          </div>
         </div>
       </div>
     </>
   );
 };
-export default AlbumPage;
+export default ImagePage;

@@ -23,6 +23,7 @@ const AllAlbumsPage = () => {
           continue;
         }
         loadedAlbums.push({
+          key: key,
           id: key,
           url: responseData[key].url,
           category: responseData[key].category,

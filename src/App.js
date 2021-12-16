@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import UploadImagePage from "./pages/UploadImagePage";
 import AuthContext from "./store/auth-context";
+import ImagePage from "./pages/ImagePage";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -22,14 +23,15 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/all-images" element={<AllPicturesPage />} />
         <Route path="/all-albums" element={<AllAlbumsPage />} />
-        <Route path="/album-information/:categoty" element={<AlbumPage />} />
+        <Route path="/album-information/:category" element={<AlbumPage />} />
+        <Route path="/image-information/:id" element={<ImagePage />} />
         {!isLoggedIn && <Route path="/login" element={<LoginPage />} />}
         {!isLoggedIn && <Route path="/register" element={<RegisterPage />} />}
 
         {isLoggedIn && (
           <Route path="/upload-image" element={<UploadImagePage />} />
         )}
-        
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
