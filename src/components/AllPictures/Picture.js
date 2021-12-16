@@ -2,7 +2,7 @@
 function Picture(props) {
   return (
     <>
-      <div className="container justify-content-center">
+      <div className="container justify-content-center image-name">
         <h1>{props.name}</h1>
         <br/> 
       </div>

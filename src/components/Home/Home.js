@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import image from "../Files/homePage.jpg"
 
 function Home() {
   const authCtx = useContext(AuthContext);
@@ -9,10 +10,9 @@ function Home() {
     <>
       <div className="container col-xxl-8 px-4 py-5">
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div className="col-10 col-sm-8 col-lg-6">
-          <div className="image-blurred-edge">
-           
-            </div>
+          <div className="col-10 col-sm-8 col-lg-6 image-home ">
+        
+            <img className= "rounded" src={image} alt=""></img>
           </div>
           <div className="col-lg-6">
             <h1 className="display-5 fw-bold lh-1 mb-3">

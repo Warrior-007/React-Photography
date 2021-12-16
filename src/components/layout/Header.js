@@ -1,20 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import logo from "../Files/whiteLogo.png"; // with import
 import AuthContext from "../../store/auth-context";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-const handleOnSearch = (string, results) => {
-  // onSearch will have as the first callback parameter
-  // the string searched and for the second the results.
-  console.log(string, results);
-};
 
-const formatResult = (item) => {
-  return item;
-  // return (<p dangerouslySetInnerHTML={{__html: '<strong>'+item+'</strong>'}}></p>); //To format result as html
-};
+
+
+
 
 function Header() {
+ 
+  const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
 
@@ -47,6 +43,10 @@ function Header() {
     authCtx.logout();
   };
 
+  const handleOnSelect = (item) => {
+    navigate(`/image-information/${item.id}`);
+    
+  }
   return (
     <header className="p-3 bg-dark text-white">
       <div className="container">
@@ -99,9 +99,8 @@ function Header() {
           <div id="search-bar">
             <ReactSearchAutocomplete
               items={items}
-              onSearch={handleOnSearch}
-              autoFocus
-              formatResult={formatResult}
+              onSelect={handleOnSelect}
+              placeholder="Search here...something?"
             />
           </div>
 

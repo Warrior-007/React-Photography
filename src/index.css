@@ -1,6 +1,8 @@
-h1{
-  text-align: center;
+.image-name h1 { text-align: center;}
+.image-home img{
+    width: 100%
 }
+
 .card-text{
   color: black;
 }
