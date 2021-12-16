@@ -35,7 +35,7 @@ const AllAlbumsPage = () => {
   }, []);
 
   const categoryList = album.map((picture) => (
-    <Link to={`/album-information/${picture.category}`}>
+    <Link to={`/album-information/${picture.category}`}  style={{ textDecoration: 'none' }}>
       <PicturePreview
         key={picture.id}
         id={picture.id}

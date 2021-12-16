@@ -5,6 +5,10 @@
 
 .card-text{
   color: black;
+  transition: 0.2s;
+}
+.card-text:hover{
+color: gold
 }
 .b-example-divider {
   height: 3rem;

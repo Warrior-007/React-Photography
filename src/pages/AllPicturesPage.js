@@ -29,8 +29,9 @@ const AllPictures = () => {
     };
     fetchPictures();
   }, []);
-  const picturesList = pictures.map((picture) => (
-    <Link to={`/image-information/${picture.id}`}>
+  const reversed = pictures.reverse();
+  const picturesList = reversed.map((picture) => (
+    <Link to={`/image-information/${picture.id}`}  style={{ textDecoration: 'none' }}>
       <PicturePreview
         key={picture.id}
         id={picture.id}
