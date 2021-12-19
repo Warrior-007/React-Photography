@@ -51,7 +51,7 @@ function Register() {
         const expirationTime = new Date(
           new Date().getTime() + +data.expiresIn * 1000
         );
-        authCtx.login(data.idToken, expirationTime.toISOString());
+        authCtx.login(data.idToken, expirationTime.toISOString(), data.localId);
         navigate("/");
       })
       .catch((error) => {
@@ -87,6 +87,7 @@ function Register() {
                   id="floatingInput"
                   placeholder="name@example.com"
                   ref={emailInputRef}
+                  required
                 />
                 <label htmlFor="floatingInput">Email address</label>
               </div>
@@ -97,6 +98,7 @@ function Register() {
                   id="floatingPassword"
                   placeholder="Password"
                   ref={passwordInputRef}
+                  required
                 />
                 <label htmlFor="floatingPassword">Password</label>
               </div>

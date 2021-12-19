@@ -22,6 +22,7 @@ const AllPictures = () => {
           name: responseData[key].name,
           url: responseData[key].url,
           category: responseData[key].category,
+          creatorId: responseData[key].creatorId
         });
       }
 
@@ -38,6 +39,7 @@ const AllPictures = () => {
         name={picture.name}
         url={picture.url}
         category={picture.category}
+        creatorId={picture.creatorId}
       />
     </Link>
   ));

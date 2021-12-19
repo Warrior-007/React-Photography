@@ -121,10 +121,12 @@ function UploadImage(props) {
 
     const enteredName = nameInputRef.current.value;
     const enteredUrl = urlInputRef.current.value;
+    const userId = localStorage.getItem("userId");
     const imageData = {
       category: selectedOption.value,
       name: enteredName,
       url: enteredUrl,
+      creatorId: userId,
     };
 
     props.onAddImage(imageData);

@@ -79,6 +79,7 @@ function Login() {
                 id="floatingInput"
                 placeholder="name@example.com"
                 ref={emailInputRef}
+                required
               />
               <label htmlFor="floatingInput">Email address</label>
             </div>
@@ -89,6 +90,7 @@ function Login() {
                 id="floatingPassword"
                 placeholder="Password"
                 ref={passwordInputRef}
+                required
               />
               <label htmlFor="floatingPassword">Create Password</label>
             </div>
