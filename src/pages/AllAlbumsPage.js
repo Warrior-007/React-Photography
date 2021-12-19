@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import PicturePreview from "../components/AllPictures/PicturePreview";
 
 const AllAlbumsPage = () => {
@@ -23,7 +22,6 @@ const AllAlbumsPage = () => {
           continue;
         }
         loadedAlbums.push({
-          key: key,
           id: key,
           url: responseData[key].url,
           category: responseData[key].category,
@@ -35,14 +33,13 @@ const AllAlbumsPage = () => {
   }, []);
 
   const categoryList = album.map((picture) => (
-    <Link to={`/album-information/${picture.category}`}  style={{ textDecoration: 'none' }}>
-      <PicturePreview
-        key={picture.id}
-        id={picture.id}
-        url={picture.url}
-        name={picture.category}
-      />
-    </Link>
+    <PicturePreview
+      link={`/album-information/${picture.category}`}
+      key={picture.category}
+      id={picture.id}
+      url={picture.url}
+      name={picture.category}
+    />
   ));
 
   return (

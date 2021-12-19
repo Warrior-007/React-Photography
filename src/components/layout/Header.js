@@ -100,7 +100,7 @@ function Header() {
             <ReactSearchAutocomplete
               items={items}
               onSelect={handleOnSelect}
-              placeholder="Search here...something?"
+              placeholder="Looking for something 👀?"
             />
           </div>
 

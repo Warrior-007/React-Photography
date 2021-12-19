@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function PicturePreview(props) {
   const userId = localStorage.getItem("userId");
   const imageCreatorId = props.creatorId;
@@ -5,6 +6,10 @@ function PicturePreview(props) {
   if (userId === imageCreatorId) {
     isUserTheOwner = true;
   }
+
+  const deleteHandler = () => {
+    alert("ehoi");
+  };
 
   return (
     <div
@@ -14,19 +19,41 @@ function PicturePreview(props) {
       onClick={props.onClick}
     >
       <div className="card">
-        <img className="card-img-top" src={props.url} alt="" />
+        <Link
+          className="card-image-a"
+          to={props.link}
+          style={{ textDecoration: "none" }}
+        >
+          <img className="card-img-top" src={props.url} alt="" />
+        </Link>
+
         <div className="card-body row">
-          <div className="container col-6">
-            <p className="card-text">{props.name}</p>
-          </div>
+          {!isUserTheOwner && (
+            <div className="col-12">
+              <p className="card-text">{props.name}</p>
+            </div>
+          )}
+
           {isUserTheOwner && (
             <>
-              <div className="container  col-3">
-                {" "}
-                <i className="fas fa-edit float-left"></i>
+              <div className="col-8">
+                <p className="card-text">{props.name}</p>
               </div>
-              <div className="container  col-3">
-                <i className="fas fa-trash float-right"></i>
+              <div className="col-2">
+                <Link
+                  className="card-image-a"
+                  to={`/edit-image/${props.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <i className="fas fa-edit float-left"></i>
+                </Link>
+              </div>
+
+              <div className="col-2">
+                <i
+                  className="fas fa-trash float-right"
+                  onClick={deleteHandler} style={{ cursor: "pointer" }}
+                ></i>
               </div>
             </>
           )}

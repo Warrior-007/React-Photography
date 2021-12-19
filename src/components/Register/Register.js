@@ -51,7 +51,8 @@ function Login() {
         navigate("/");
       })
       .catch((error) => {
-        alert(error.message);
+        
+        alert("Oops, there is a problem! Try again");
       });
   };
 
@@ -94,7 +95,7 @@ function Login() {
               />
               <label htmlFor="floatingPassword">Create Password</label>
             </div>
-            <button className="w-100 btn btn-lg btn-primary" type="submit">
+            <button className="w-100 btn btn-lg btn-warning" type="submit">
               {!isLoading && "Sign up"}
               {isLoading && <LoadingSpinner />}
             </button>

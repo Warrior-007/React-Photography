@@ -109,7 +109,7 @@ const options = [
   },
 ];
 
-function UploadImage(props) {
+function EditImage(props) {
   const navigate = useNavigate();
 
   const nameInputRef = useRef();
@@ -129,13 +129,13 @@ function UploadImage(props) {
       creatorId: userId,
     };
 
-    props.onAddImage(imageData);
+    props.onChangeImage(imageData);
     navigate("/");
   }
   return (
     <form onSubmit={submitHandler}>
       <div className="container p-5">
-        <h2 className="fw-bold mb-5 mx-auto text-center">Upload your image HERE</h2>
+        <h2 className="fw-bold mb-5 mx-auto text-center">Edit your image</h2>
 
         <div className="mb-3">
           <label htmlFor="imageFormName" className="form-value">
@@ -175,12 +175,12 @@ function UploadImage(props) {
         </div>
         */}
         <br />
-        <button type="submit" className="btn btn-primary px-4 ">
-          Upload
+        <button type="submit" className="btn btn-success px-4 ">
+          Edit
         </button>
       </div>
     </form>
   );
 }
 
-export default UploadImage;
+export default EditImage;

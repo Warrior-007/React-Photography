@@ -55,7 +55,7 @@ function Register() {
         navigate("/");
       })
       .catch((error) => {
-        alert(error.message);
+        alert("Oops, there is a problem! Try again");
       });
   };
   return (
@@ -72,7 +72,7 @@ function Register() {
             <h2 className="fw-bold mb-0">Login to your account</h2>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close "
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
@@ -103,7 +103,7 @@ function Register() {
                 <label htmlFor="floatingPassword">Password</label>
               </div>
               <button
-                className="w-100 mb-2 btn btn-lg rounded-4 btn-primary"
+                className="w-100 mb-2 btn btn-lg rounded-4 btn-warning"
                 type="submit"
               >
                 {!isLoading && "Login"}

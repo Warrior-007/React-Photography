@@ -80,15 +80,23 @@ color: gold
   border-radius: 0.75rem;
 }
 a:hover {
+  color: black;
+  transition: 0.2s;
   color: gold !important;
 }
-.fab{
+.fab {
   color: black;
   transition: 0.2s;
 }
 .fab:hover{
   cursor: pointer;
   color: gold !important;
+}
+.fa-trash{
+  color: red;
+}
+.fa-edit {
+  color: green
 }
 .rounded-4 {
   border-radius: 0.5rem;
@@ -166,9 +174,12 @@ a:hover {
   height: 18rem;
   width: 80%;
 }
-
-.card img {
+.card-image-a {
   height: 80%;
+  width: 100%;
+}
+.card-image-a img {
+  height: 100%;
   width: 100%;
   object-fit: cover;
 }

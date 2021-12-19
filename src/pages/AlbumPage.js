@@ -40,6 +40,7 @@ const AlbumPage = () => {
   const picturesList = pictures.map((picture) => (
     <Link to={`/image-information/${picture.id}`}>
       <PicturePreview
+        link={`/image-information/${picture.id}`}
         key={picture.id}
         id={picture.id}
         name={picture.name}

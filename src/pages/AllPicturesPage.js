@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import PicturePreview from "../components/AllPictures/PicturePreview";
 
-import { Link } from "react-router-dom";
 import "react-medium-image-zoom/dist/styles.css";
 
 const AllPictures = () => {
@@ -22,7 +21,7 @@ const AllPictures = () => {
           name: responseData[key].name,
           url: responseData[key].url,
           category: responseData[key].category,
-          creatorId: responseData[key].creatorId
+          creatorId: responseData[key].creatorId,
         });
       }
 
@@ -32,17 +31,17 @@ const AllPictures = () => {
   }, []);
   const reversed = pictures.reverse();
   const picturesList = reversed.map((picture) => (
-    <Link to={`/image-information/${picture.id}`}  style={{ textDecoration: 'none' }}>
-      <PicturePreview
-        key={picture.id}
-        id={picture.id}
-        name={picture.name}
-        url={picture.url}
-        category={picture.category}
-        creatorId={picture.creatorId}
-      />
-    </Link>
+    <PicturePreview
+      link={`/image-information/${picture.id}`}
+      key={picture.id}
+      id={picture.id}
+      name={picture.name}
+      url={picture.url}
+      category={picture.category}
+      creatorId={picture.creatorId}
+    />
   ));
+
   return (
     <>
       <div className="album py-5 bg-light">
@@ -53,6 +52,7 @@ const AllPictures = () => {
         </div>
       </div>
     </>
+   
   );
 };
 export default AllPictures;

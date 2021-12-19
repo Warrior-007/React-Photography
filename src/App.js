@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage";
 import UploadImagePage from "./pages/UploadImagePage";
 import AuthContext from "./store/auth-context";
 import ImagePage from "./pages/ImagePage";
+import EditImagePage from "./pages/EditImagePage";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -30,8 +31,12 @@ function App() {
 
         {isLoggedIn && (
           <Route path="/upload-image" element={<UploadImagePage />} />
+          
         )}
-
+  {isLoggedIn && (
+          <Route path="/edit-image/:id" element={<EditImagePage />} />
+          
+        )}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
