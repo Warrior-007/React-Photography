@@ -1,46 +1,49 @@
 import { useEffect, useState } from "react";
 import PicturePreview from "../components/AllPictures/PicturePreview";
-
-import "react-medium-image-zoom/dist/styles.css";
+import useHttp from "../hooks/use-http";
 
 const AllPictures = () => {
   const [pictures, setPictures] = useState([]);
+  const { isLoading, sendRequest: fetchPictures } = useHttp();
 
   useEffect(() => {
-    const fetchPictures = async () => {
-      const response = await fetch(
-        "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json"
-      );
-      const responseData = await response.json();
-
+    const transformPictures = (picturesObj) => {
       const loadedPictures = [];
 
-      for (const key in responseData) {
+      for (const key in picturesObj) {
         loadedPictures.push({
           id: key,
-          name: responseData[key].name,
-          url: responseData[key].url,
-          category: responseData[key].category,
-          creatorId: responseData[key].creatorId,
+          name: picturesObj[key].name,
+          url: picturesObj[key].url,
+          category: picturesObj[key].category,
+          creatorId: picturesObj[key].creatorId,
         });
       }
-
       setPictures(loadedPictures);
     };
-    fetchPictures();
-  }, []);
-  const reversed = pictures.reverse();
-  const picturesList = reversed.map((picture) => (
-    <PicturePreview
-      link={`/image-information/${picture.id}`}
-      key={picture.id}
-      id={picture.id}
-      name={picture.name}
-      url={picture.url}
-      category={picture.category}
-      creatorId={picture.creatorId}
-    />
-  ));
+
+    fetchPictures(
+      {
+        url: "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
+      },
+      transformPictures
+    );
+  }, [fetchPictures]);
+
+  const picturesList = pictures
+    .reverse()
+    .map((picture) => (
+      <PicturePreview
+        isLoading={isLoading}
+        link={`/image-information/${picture.id}`}
+        key={picture.id}
+        id={picture.id}
+        name={picture.name}
+        url={picture.url}
+        category={picture.category}
+        creatorId={picture.creatorId}
+      />
+    ));
 
   return (
     <>
@@ -52,7 +55,6 @@ const AllPictures = () => {
         </div>
       </div>
     </>
-   
   );
 };
 export default AllPictures;

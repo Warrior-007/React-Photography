@@ -1,39 +1,42 @@
 import { useEffect, useState } from "react";
 import PicturePreview from "../components/AllPictures/PicturePreview";
+import useHttp from "../hooks/use-http";
 
 const AllAlbumsPage = () => {
   const [album, setAlbum] = useState([]);
+  const { isLoading, sendRequest: fetchPictures } = useHttp();
 
   useEffect(() => {
-    const fetchPictures = async () => {
-      const response = await fetch(
-        "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json"
-      );
-      const responseData = await response.json();
-
+    const transformAlbum = (picturesObj) => {
       const loadedAlbums = [];
 
-      for (const key in responseData) {
+      for (const key in picturesObj) {
         if (
           loadedAlbums.find(
-            (product) => product.category === responseData[key].category
+            (product) => product.category === picturesObj[key].category
           )
         ) {
           continue;
         }
         loadedAlbums.push({
           id: key,
-          url: responseData[key].url,
-          category: responseData[key].category,
+          url: picturesObj[key].url,
+          category: picturesObj[key].category,
         });
       }
       setAlbum(loadedAlbums);
     };
-    fetchPictures();
-  }, []);
+    fetchPictures(
+      {
+        url: "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
+      },
+      transformAlbum
+    );
+  }, [fetchPictures]);
 
   const categoryList = album.map((picture) => (
     <PicturePreview
+      isLoading={isLoading}
       link={`/album-information/${picture.category}`}
       key={picture.category}
       id={picture.id}

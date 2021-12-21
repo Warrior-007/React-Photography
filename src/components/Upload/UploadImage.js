@@ -118,24 +118,30 @@ function UploadImage(props) {
 
   function submitHandler(event) {
     event.preventDefault();
+    if (selectedOption) {
+      const enteredName = nameInputRef.current.value;
+      const enteredUrl = urlInputRef.current.value;
 
-    const enteredName = nameInputRef.current.value;
-    const enteredUrl = urlInputRef.current.value;
-    const userId = localStorage.getItem("userId");
-    const imageData = {
-      category: selectedOption.value,
-      name: enteredName,
-      url: enteredUrl,
-      creatorId: userId,
-    };
+      const userId = localStorage.getItem("userId");
+      const imageData = {
+        category: selectedOption.value,
+        name: enteredName,
+        url: enteredUrl,
+        creatorId: userId,
+      };
 
-    props.onAddImage(imageData);
-    navigate("/");
+      props.onAddImage(imageData);
+      navigate("/");
+    } else {
+      alert("Please, select a category");
+    }
   }
   return (
     <form onSubmit={submitHandler}>
       <div className="container p-5">
-        <h2 className="fw-bold mb-5 mx-auto text-center">Upload your image HERE</h2>
+        <h2 className="fw-bold mb-5 mx-auto text-center">
+          Upload your image HERE
+        </h2>
 
         <div className="mb-3">
           <label htmlFor="imageFormName" className="form-value">
@@ -147,6 +153,7 @@ function UploadImage(props) {
             id="imageFormName"
             placeholder="African lion"
             ref={nameInputRef}
+            required
           />
         </div>
         <label className="form-value">Category</label>
@@ -164,6 +171,7 @@ function UploadImage(props) {
           id="imageFormURL"
           placeholder="https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg"
           ref={urlInputRef}
+          required
         />
         {/*
         <div className="input-group mb-3">
@@ -175,7 +183,7 @@ function UploadImage(props) {
         </div>
         */}
         <br />
-        <button type="submit" className="btn btn-primary px-4 ">
+        <button type="submit" className="btn btn-success px-4 ">
           Upload
         </button>
       </div>

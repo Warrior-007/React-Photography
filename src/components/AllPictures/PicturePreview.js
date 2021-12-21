@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
+
 function PicturePreview(props) {
   const userId = localStorage.getItem("userId");
   const imageCreatorId = props.creatorId;
+  
   let isUserTheOwner = false;
   if (userId === imageCreatorId) {
     isUserTheOwner = true;
   }
 
   const deleteHandler = () => {
-    alert("ehoi");
+    alert("Delete alert");
   };
 
   return (
@@ -52,7 +54,8 @@ function PicturePreview(props) {
               <div className="col-2">
                 <i
                   className="fas fa-trash float-right"
-                  onClick={deleteHandler} style={{ cursor: "pointer" }}
+                  onClick={deleteHandler}
+                  style={{ cursor: "pointer" }}
                 ></i>
               </div>
             </>

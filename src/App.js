@@ -13,6 +13,7 @@ import UploadImagePage from "./pages/UploadImagePage";
 import AuthContext from "./store/auth-context";
 import ImagePage from "./pages/ImagePage";
 import EditImagePage from "./pages/EditImagePage";
+import MyImagesPage from "./pages/MyImagesPage";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -31,11 +32,12 @@ function App() {
 
         {isLoggedIn && (
           <Route path="/upload-image" element={<UploadImagePage />} />
-          
+        )}
+         {isLoggedIn && (
+          <Route path="/my-images" element={<MyImagesPage />} />
         )}
   {isLoggedIn && (
           <Route path="/edit-image/:id" element={<EditImagePage />} />
-          
         )}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

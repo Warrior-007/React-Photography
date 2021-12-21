@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-
-import "react-medium-image-zoom/dist/styles.css";
+import useHttp from "../hooks/use-http";
 import Picture from "../components/AllPictures/Picture";
 
 const ImagePage = () => {
@@ -11,48 +10,49 @@ const ImagePage = () => {
   const imageIdObj = useParams();
   const imageId = imageIdObj[Object.keys(imageIdObj)[0]];
 
-  useEffect(() => {
-    const fetchPictures = async () => {
-      const response = await fetch(
-        "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json"
-      );
-      const responseData = await response.json();
+  const { isLoading, sendRequest: fetchPictures } = useHttp();
 
-      const loadedPicture = [];
-      for (const key in responseData) {
+  useEffect(() => {
+    const transformPictures = (picturesObj) => {
+      const loadedPictures = [];
+
+      for (const key in picturesObj) {
         if (key === imageId) {
-          loadedPicture.push({
-            key: key,
+          loadedPictures.push({
             id: key,
-            name: responseData[key].name,
-            url: responseData[key].url,
-            category: responseData[key].category,
+            name: picturesObj[key].name,
+            url: picturesObj[key].url,
+            category: picturesObj[key].category,
+            creatorId: picturesObj[key].creatorId,
           });
           break;
         }
       }
-
-      setPictures(loadedPicture);
+      setPictures(loadedPictures);
     };
-    fetchPictures();
-  }, [imageId]);
 
-  const picturesList = pictures.map((picture) => (
-    
-      <Picture
-        key={picture.id}
-        id={picture.id}
-        name={picture.name}
-        url={picture.url}
-        category={picture.category}
-      />
+    fetchPictures(
+      {
+        url: "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
+      },
+      transformPictures
+    );
+  }, [fetchPictures, imageId]);
+
+  const picture = pictures.map((picture) => (
+    <Picture
+      isLoading={isLoading}
+      key={picture.id}
+      id={picture.id}
+      name={picture.name}
+      url={picture.url}
+      category={picture.category}
+    />
   ));
   return (
     <>
       <div className="album py-5 bg-light">
-        <div className="container">
-            {picturesList}
-        </div>
+        <div className="container">{picture}</div>
       </div>
     </>
   );

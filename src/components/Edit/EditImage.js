@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
+import useHttp from "../../hooks/use-http";
 
 const options = [
   {
@@ -109,63 +110,104 @@ const options = [
   },
 ];
 
-function EditImage(props) {
+const EditImage = (props) => {
   const navigate = useNavigate();
+
+  const imageIdObj = useParams();
+  const imageId = imageIdObj[Object.keys(imageIdObj)[0]];
+
+  const [picture, setPicture] = useState();
+  const { sendRequest: fetchPictures } = useHttp();
+
+  useEffect(() => {
+    const transformPictures = (picturesObj) => {
+      let loadedPicture;
+      for (const key in picturesObj) {
+        if (key === imageId) {
+          loadedPicture = {
+            id: key,
+            name: picturesObj[key].name,
+            url: picturesObj[key].url,
+            category: picturesObj[key].category,
+            creatorId: picturesObj[key].creatorId,
+          };
+          break;
+        }
+      }
+      setPicture(loadedPicture);
+    };
+
+    fetchPictures(
+      {
+        url: "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
+      },
+      transformPictures
+    );
+  }, [fetchPictures, imageId]);
 
   const nameInputRef = useRef();
   const urlInputRef = useRef();
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState();
 
   function submitHandler(event) {
     event.preventDefault();
+    if (selectedOption) {
+      const enteredName = nameInputRef.current.value;
+      const enteredUrl = urlInputRef.current.value;
 
-    const enteredName = nameInputRef.current.value;
-    const enteredUrl = urlInputRef.current.value;
-    const userId = localStorage.getItem("userId");
-    const imageData = {
-      category: selectedOption.value,
-      name: enteredName,
-      url: enteredUrl,
-      creatorId: userId,
-    };
+      const userId = localStorage.getItem("userId");
 
-    props.onChangeImage(imageData);
-    navigate("/");
+      const imageData = {
+        category: selectedOption.value,
+        name: enteredName,
+        url: enteredUrl,
+        creatorId: userId,
+      };
+
+      props.onChangeImage(imageData, imageId);
+      navigate("/");
+    } else {
+      alert("Please, select a category");
+    }
   }
+
   return (
     <form onSubmit={submitHandler}>
       <div className="container p-5">
         <h2 className="fw-bold mb-5 mx-auto text-center">Edit your image</h2>
-
-        <div className="mb-3">
-          <label htmlFor="imageFormName" className="form-value">
-            Image Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="imageFormName"
-            placeholder="African lion"
-            ref={nameInputRef}
-          />
-        </div>
-        <label className="form-value">Category</label>
-        <div className="input-group mb-3">
-          <Select
-            defaultValue={selectedOption}
-            onChange={setSelectedOption}
-            options={options}
-          />
-        </div>
-        <label className="form-value">Image URL</label>
-        <input
-          type="text"
-          className="form-control"
-          id="imageFormURL"
-          placeholder="https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg"
-          ref={urlInputRef}
-        />
-        {/*
+        {picture && (
+          <>
+            <div className="mb-3">
+              <label htmlFor="imageFormName" className="form-value">
+                Image Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="imageFormName"
+                placeholder="Loading..."
+                ref={nameInputRef}
+                defaultValue={picture.name}
+              />
+            </div>
+            <label className="form-value">Category</label>
+            <div className="input-group mb-3">
+              <Select
+                defaultValue={selectedOption}
+                onChange={setSelectedOption}
+                options={options}
+              />
+            </div>
+            <label className="form-value">Image URL</label>
+            <input
+              type="text"
+              className="form-control"
+              id="imageFormURL"
+              placeholder="Loading..."
+              ref={urlInputRef}
+              defaultValue={picture.url}
+            />
+            {/*
         <div className="input-group mb-3">
           <input type="file" className="form-control" id="inputGroupFile02" />
           <label className="input-group-text" htmlFor="inputGroupFile02">
@@ -174,13 +216,15 @@ function EditImage(props) {
          
         </div>
         */}
-        <br />
-        <button type="submit" className="btn btn-success px-4 ">
-          Edit
-        </button>
+            <br />
+            <button type="submit" className="btn btn-success px-4 ">
+              Edit
+            </button>
+          </>
+        )}
       </div>
     </form>
   );
-}
+};
 
 export default EditImage;

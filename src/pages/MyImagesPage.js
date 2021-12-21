@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-
 import PicturePreview from "../components/AllPictures/PicturePreview";
-import AlbumInformation from "../components/AllPictures/AlbumInfrormation";
-
 import useHttp from "../hooks/use-http";
-
-const AlbumPage = () => {
+const MyImagesPage = () => {
   const [pictures, setPictures] = useState([]);
-  const categoryObj = useParams();
-  const category = categoryObj[Object.keys(categoryObj)[0]];
 
   const { isLoading, sendRequest: fetchPictures } = useHttp();
   useEffect(() => {
     const transformPictures = (picturesObj) => {
       const loadedPictures = [];
+      const userId = localStorage.getItem("userId");
 
       for (const key in picturesObj) {
-        if (picturesObj[key].category === category) {
+        if (picturesObj[key].creatorId === userId) {
           loadedPictures.push({
             id: key,
             name: picturesObj[key].name,
@@ -27,38 +21,36 @@ const AlbumPage = () => {
           });
         }
       }
-
       setPictures(loadedPictures);
     };
+
     fetchPictures(
       {
         url: "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
       },
       transformPictures
     );
-  }, [fetchPictures, category]);
+  }, [fetchPictures]);
 
-  const picturesList = pictures.map((picture) => (
-    <Link to={`/image-information/${picture.id}`}>
-      <PicturePreview
-        isLoading={isLoading}
-        link={`/image-information/${picture.id}`}
-        key={picture.id}
-        id={picture.id}
-        name={picture.name}
-        url={picture.url}
-        category={picture.category}
-        creatorId={picture.creatorId}
-      />
-    </Link>
+  const reversed = pictures.reverse();
+  const picturesList = reversed.map((picture) => (
+    <PicturePreview
+      isLoading={isLoading}
+      link={`/image-information/${picture.id}`}
+      key={picture.id}
+      id={picture.id}
+      name={picture.name}
+      url={picture.url}
+      category={picture.category}
+      creatorId={picture.creatorId}
+    />
   ));
+
   return (
     <>
-      <AlbumInformation name={category} />
-
       <div className="album py-5 bg-light">
         <div className="container">
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div className="row row-cols- row-cols-sm-2 row-cols-md-3 g-3">
             {picturesList}
           </div>
         </div>
@@ -66,4 +58,4 @@ const AlbumPage = () => {
     </>
   );
 };
-export default AlbumPage;
+export default MyImagesPage;
