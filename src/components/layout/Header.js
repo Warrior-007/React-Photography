@@ -4,18 +4,13 @@ import logo from "../Files/whiteLogo.png"; // with import
 import AuthContext from "../../store/auth-context";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
-
-
-
-
-function Header() {
- 
+const Header = () => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
 
+  const email = localStorage.getItem("email");
   const [picturesNames, setPicturesNames] = useState([]);
-
   useEffect(() => {
     const fetchPictures = async () => {
       const response = await fetch(
@@ -45,8 +40,7 @@ function Header() {
 
   const handleOnSelect = (item) => {
     navigate(`/image-information/${item.id}`);
-    
-  }
+  };
   return (
     <header className="p-3 bg-dark text-white">
       <div className="container">
@@ -119,18 +113,25 @@ function Header() {
               </>
             )}
             {isLoggedIn && (
-              <button
-                type="button"
-                className="btn btn-outline-light me-2"
-                onClick={logoutHandler}
-              >
-                Logout
-              </button>
+              <>
+                <Link to="/profile">
+                  <button type="button" className="btn btn-outline-warning me-2">
+                    Hello {email}
+                  </button>
+                </Link>
+                <button
+                  type="button"
+                  className="btn btn-outline-light me-2"
+                  onClick={logoutHandler}
+                >
+                  Logout
+                </button>
+              </>
             )}
           </div>
         </div>
       </div>
     </header>
   );
-}
+};
 export default Header;

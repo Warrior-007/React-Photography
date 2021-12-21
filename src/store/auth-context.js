@@ -26,10 +26,11 @@ const retrieveStoredToken = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
+    localStorage.removeItem("email");
     return null;
   }
 
-  return { token: storedToken, duration: remainingTime};
+  return { token: storedToken, duration: remainingTime };
 };
 
 export const AuthContextProvider = (props) => {
@@ -47,17 +48,18 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("expirationTime");
+    localStorage.removeItem("email");
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }
   };
 
-  const loginHandler = (token, expirationTime, userId) => {
+  const loginHandler = (token, expirationTime, userId, email) => {
     setToken(token);
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
     localStorage.setItem("userId", userId);
-
+    localStorage.setItem("email", email);
     const remainingTime = calculateRemainingTime(expirationTime);
 
     logoutTimer = setTimeout(logoutHandler, remainingTime);

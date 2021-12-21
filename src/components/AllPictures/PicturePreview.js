@@ -1,16 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function PicturePreview(props) {
+  const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const imageCreatorId = props.creatorId;
-  
+
   let isUserTheOwner = false;
   if (userId === imageCreatorId) {
     isUserTheOwner = true;
   }
 
   const deleteHandler = () => {
-    alert("Delete alert");
+    if (
+      window.confirm(
+        "Are you sure you want to DELETE this image? It will be lost forever!"
+      )
+    ) {
+      fetch(
+        `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+      navigate(`/`);
+    }
   };
 
   return (
