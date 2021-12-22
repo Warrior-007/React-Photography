@@ -47,6 +47,7 @@ const ImagePage = () => {
       name={picture.name}
       url={picture.url}
       category={picture.category}
+      creatorId={picture.creatorId}
     />
   ));
   return (

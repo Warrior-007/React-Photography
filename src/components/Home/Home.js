@@ -15,8 +15,11 @@ function Home() {
             <img className= "rounded" src={image} alt=""></img>
           </div>
           <div className="col-lg-6">
-            <h1 className="display-5 fw-bold lh-1 mb-3">
-              Every moment can be captured in the memory forever!
+            <h2 className="display-6 fw-bold lh-1 mb-3">
+              LIFE IS SHORT
+            </h2>
+            <h1 className="display-4 fw-bold lh-1 mb-3">
+              CAPTURE <span style={{color: "#ffc107"}}>EVERY </span> MOMENT
             </h1>
             <br />
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">

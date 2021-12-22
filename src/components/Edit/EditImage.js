@@ -111,17 +111,26 @@ const options = [
 ];
 
 const EditImage = (props) => {
+  /*
+ {
+    label: "Nature",
+    value: "Nature photography",
+  },
+*/
   const navigate = useNavigate();
 
   const imageIdObj = useParams();
   const imageId = imageIdObj[Object.keys(imageIdObj)[0]];
 
   const [picture, setPicture] = useState();
+  const [selectedOption, setSelectedOption] = useState();
+
   const { sendRequest: fetchPictures } = useHttp();
 
   useEffect(() => {
     const transformPictures = (picturesObj) => {
       let loadedPicture;
+
       for (const key in picturesObj) {
         if (key === imageId) {
           loadedPicture = {
@@ -131,6 +140,12 @@ const EditImage = (props) => {
             category: picturesObj[key].category,
             creatorId: picturesObj[key].creatorId,
           };
+
+          const category = {
+            label: loadedPicture.category.split(" ")[0],
+            value: loadedPicture.category,
+          };
+          setSelectedOption(category);
           break;
         }
       }
@@ -147,7 +162,6 @@ const EditImage = (props) => {
 
   const nameInputRef = useRef();
   const urlInputRef = useRef();
-  const [selectedOption, setSelectedOption] = useState();
 
   function submitHandler(event) {
     event.preventDefault();
@@ -213,7 +227,6 @@ const EditImage = (props) => {
           <label className="input-group-text" htmlFor="inputGroupFile02">
             Upload
           </label>
-         
         </div>
         */}
             <br />

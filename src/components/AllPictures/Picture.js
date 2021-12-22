@@ -1,40 +1,54 @@
 import { useNavigate } from "react-router-dom";
 function Picture(props) {
   const navigate = useNavigate();
-    const deleteHandler = () => {
-      if (
-        window.confirm(
-          "Are you sure you want to DELETE this image? It will be lost forever!"
-        )
-      ) {
-        fetch(
-          `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}.json`,
-          {
-            method: "DELETE",
-          }
-        );
-        navigate(`/`);
-      }
+  const userId = localStorage.getItem("userId");
+  const imageCreatorId = props.creatorId;
+
+  let isUserTheOwner = false;
+  if (userId === imageCreatorId) {
+    isUserTheOwner = true;
+  }
+
+  const deleteHandler = () => {
+    if (
+      window.confirm(
+        "Are you sure you want to DELETE this image? It will be lost forever!"
+      )
+    ) {
+      fetch(
+        `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+      navigate(`/`);
+    }
   };
   const handleOnSelect = () => {
     navigate(`/edit-image/${props.id}`);
   };
+
   return (
     <>
       <div className="container justify-content-center image-name">
         <h1>
-          <i
-            onClick={handleOnSelect}
-            className="fas fa-edit fa-sm"
-            style={{ cursor: "pointer" }}
-          ></i>
+          {isUserTheOwner && (
+            <i
+              onClick={handleOnSelect}
+              className="fas fa-edit fa-sm"
+              style={{ cursor: "pointer" }}
+            ></i>
+          )}
           {" " + props.name + " "}
-          <i
-            className="fas fa-trash fa-sm"
-            onClick={deleteHandler}
-            style={{ cursor: "pointer" }}
-          ></i>
+          {isUserTheOwner && (
+            <i
+              className="fas fa-trash fa-sm"
+              onClick={deleteHandler}
+              style={{ cursor: "pointer" }}
+            ></i>
+          )}
         </h1>
+        <h4 className="text-center text-warning">{props.category}</h4>
         <br />
       </div>
 

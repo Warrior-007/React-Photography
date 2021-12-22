@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import PicturePreview from "../components/AllPictures/PicturePreview";
 import AlbumInformation from "../components/AllPictures/AlbumInfrormation";
@@ -39,7 +39,7 @@ const AlbumPage = () => {
   }, [fetchPictures, category]);
 
   const picturesList = pictures.map((picture) => (
-    <Link to={`/image-information/${picture.id}`}>
+
       <PicturePreview
         isLoading={isLoading}
         link={`/image-information/${picture.id}`}
@@ -50,7 +50,6 @@ const AlbumPage = () => {
         category={picture.category}
         creatorId={picture.creatorId}
       />
-    </Link>
   ));
   return (
     <>
