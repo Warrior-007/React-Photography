@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 function Picture(props) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
@@ -48,7 +48,9 @@ function Picture(props) {
             ></i>
           )}
         </h1>
-        <h4 className="text-center text-warning">{props.category}</h4>
+        <Link to={`/album-information/${props.category}`}  style={{ textDecoration: "none" }}>
+          <h4 className="text-center text-warning">{props.category}</h4>
+        </Link>
         <br />
       </div>
 

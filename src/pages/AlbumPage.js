@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import PicturePreview from "../components/AllPictures/PicturePreview";
-import AlbumInformation from "../components/AllPictures/AlbumInfrormation";
+import AlbumInformation from "../components/AllPictures/AlbumInformation";
 
 import useHttp from "../hooks/use-http";
 

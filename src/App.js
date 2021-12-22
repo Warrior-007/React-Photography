@@ -19,6 +19,7 @@ import ProfilePage from "./pages/ProfilePage";
 function App() {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
+  
   return (
     <>
       <Header />

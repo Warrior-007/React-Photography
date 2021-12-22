@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
-import image from "../Files/homePage.jpg"
+import image from "../Files/homePage.jpg";
 
 function Home() {
   const authCtx = useContext(AuthContext);
@@ -11,15 +11,12 @@ function Home() {
       <div className="container col-xxl-8 px-4 py-5">
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
           <div className="col-10 col-sm-8 col-lg-6 image-home ">
-        
-            <img className= "rounded" src={image} alt=""></img>
+            <img className="rounded" src={image} alt=""></img>
           </div>
           <div className="col-lg-6">
-            <h2 className="display-6 fw-bold lh-1 mb-3">
-              LIFE IS SHORT
-            </h2>
+            <h2 className="display-6 fw-bold lh-1 mb-3">LIFE IS SHORT</h2>
             <h1 className="display-4 fw-bold lh-1 mb-3">
-              CAPTURE <span style={{color: "#ffc107"}}>EVERY </span> MOMENT
+              CAPTURE <span style={{ color: "#ffc107" }}>EVERY </span> MOMENT
             </h1>
             <br />
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">

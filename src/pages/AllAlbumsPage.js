@@ -48,7 +48,9 @@ const AllAlbumsPage = () => {
   return (
     <>
       <div className="album py-5 bg-light">
-        <div className="container">
+      <div className="container justify-content-center image-name">
+        <h1 className="mb-5">Categories
+        </h1>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {categoryList}
           </div>
