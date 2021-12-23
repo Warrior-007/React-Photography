@@ -2,7 +2,9 @@
 .image-home img{
     width: 100%
 }
-
+#modalSignin {
+  background-color: #212529;
+}
 .card-text{
   color: black;
   transition: 0.2s;

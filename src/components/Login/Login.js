@@ -1,67 +1,24 @@
-import { useState, useRef, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
 
-import AuthContext from "../../store/auth-context";
 import LoadingSpinner from "../Layout/LoadingSpinner";
 
-function Register() {
-  const css = `
-    #modalSignin {
-        background-color: #212529;
-    }
-`;
-  const navigate = useNavigate();
+function Login(props) {
   const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-
-  const authCtx = useContext(AuthContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     setIsLoading(true);
-    fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBLE6k0sY-L7TgAelfb-Jtmc6tf2dXLJN8",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-          returnSecureToken: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => {
-        setIsLoading(false);
-        if (response.ok) {
-          return response.json();
-        } else {
-          response.json().then((data) => {
-            let errorMessage = "Authentication failed!";
-            throw new Error(errorMessage);
-          });
-        }
-      })
-      .then((data) => {
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
-        authCtx.login(
-          data.idToken,
-          expirationTime.toISOString(),
-          data.localId,
-          data.email
-        );
-        navigate("/");
-      })
-      .catch((error) => {
-        alert("Oops, there is a problem! Try again");
-      });
+
+    const userData = {
+      email: enteredEmail,
+      password: enteredPassword,
+    };
+
+    props.onLogin(userData);
   };
   return (
     <div
@@ -70,7 +27,6 @@ function Register() {
       role="dialog"
       id="modalSignin"
     >
-      <style>{css}</style>
       <div className="modal-dialog" role="document">
         <div className="modal-content rounded-5 shadow">
           <div className="modal-header p-5 pb-4 border-bottom-0">
@@ -122,4 +78,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
