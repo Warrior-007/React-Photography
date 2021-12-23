@@ -111,12 +111,6 @@ const options = [
 ];
 
 const EditImage = (props) => {
-  /*
- {
-    label: "Nature",
-    value: "Nature photography",
-  },
-*/
   const navigate = useNavigate();
 
   const imageIdObj = useParams();
@@ -129,36 +123,32 @@ const EditImage = (props) => {
 
   useEffect(() => {
     const transformPictures = (picturesObj) => {
-      let loadedPicture;
-
-      for (const key in picturesObj) {
-        if (key === imageId) {
-          loadedPicture = {
-            id: key,
-            name: picturesObj[key].name,
-            url: picturesObj[key].url,
-            category: picturesObj[key].category,
-            creatorId: picturesObj[key].creatorId,
-          };
-
-          const category = {
-            label: loadedPicture.category.split(" ")[0],
-            value: loadedPicture.category,
-          };
-          setSelectedOption(category);
-          break;
-        }
+      let loadedPicture = {
+        id: imageId,
+        name: picturesObj.name,
+        url: picturesObj.url,
+        category: picturesObj.category,
+        creatorId: picturesObj.creatorId,
+      };
+      if(loadedPicture.creatorId!==localStorage.getItem("userId")){
+        navigate("/");
       }
+      const category = {
+        label: loadedPicture.category.split(" ")[0],
+        value: loadedPicture.category,
+      };
+      setSelectedOption(category);
+
       setPicture(loadedPicture);
     };
 
     fetchPictures(
       {
-        url: "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
+        url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${imageId}.json`,
       },
       transformPictures
     );
-  }, [fetchPictures, imageId]);
+  }, [fetchPictures, imageId,navigate]);
 
   const nameInputRef = useRef();
   const urlInputRef = useRef();

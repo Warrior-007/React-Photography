@@ -47,11 +47,15 @@ function Login() {
         const expirationTime = new Date(
           new Date().getTime() + +data.expiresIn * 1000
         );
-        authCtx.login(data.idToken, expirationTime.toISOString());
+        authCtx.login(
+          data.idToken,
+          expirationTime.toISOString(),
+          data.localId,
+          data.email
+        );
         navigate("/");
       })
       .catch((error) => {
-        
         alert("Oops, there is a problem! Try again");
       });
   };

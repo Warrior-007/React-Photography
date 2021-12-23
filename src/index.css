@@ -6,6 +6,7 @@
 .card-text{
   color: black;
   transition: 0.2s;
+  cursor: pointer;
 }
 .card-text:hover{
 color: gold

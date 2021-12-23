@@ -5,55 +5,47 @@ import useHttp from "../hooks/use-http";
 import Picture from "../components/AllPictures/Picture";
 
 const ImagePage = () => {
-  const [pictures, setPictures] = useState([]);
+  const [picture, setPicture] = useState([]);
 
   const imageIdObj = useParams();
   const imageId = imageIdObj[Object.keys(imageIdObj)[0]];
 
   const { isLoading, sendRequest: fetchPictures } = useHttp();
-
   useEffect(() => {
     const transformPictures = (picturesObj) => {
-      const loadedPictures = [];
+      let loadedPicture = {
+        id: imageId,
+        name: picturesObj.name,
+        url: picturesObj.url,
+        category: picturesObj.category,
+        creatorId: picturesObj.creatorId,
+      };
 
-      for (const key in picturesObj) {
-        if (key === imageId) {
-          loadedPictures.push({
-            id: key,
-            name: picturesObj[key].name,
-            url: picturesObj[key].url,
-            category: picturesObj[key].category,
-            creatorId: picturesObj[key].creatorId,
-          });
-          break;
-        }
-      }
-      setPictures(loadedPictures);
+      setPicture(loadedPicture);
     };
 
     fetchPictures(
       {
-        url: "https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures.json",
+        url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${imageId}.json`,
       },
       transformPictures
     );
   }, [fetchPictures, imageId]);
 
-  const picture = pictures.map((picture) => (
-    <Picture
-      isLoading={isLoading}
-      key={picture.id}
-      id={picture.id}
-      name={picture.name}
-      url={picture.url}
-      category={picture.category}
-      creatorId={picture.creatorId}
-    />
-  ));
   return (
     <>
       <div className="album py-5 bg-light">
-        <div className="container">{picture}</div>
+        <div className="container">
+          <Picture
+            isLoading={isLoading}
+            key={picture.id}
+            id={picture.id}
+            name={picture.name}
+            url={picture.url}
+            category={picture.category}
+            creatorId={picture.creatorId}
+          />
+        </div>
       </div>
     </>
   );

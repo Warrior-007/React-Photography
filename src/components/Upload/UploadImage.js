@@ -179,7 +179,6 @@ function UploadImage(props) {
           <label className="input-group-text" htmlFor="inputGroupFile02">
             Upload
           </label>
-         
         </div>
         */}
         <br />
