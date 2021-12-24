@@ -1,67 +1,33 @@
-import { useRef, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
-import AuthContext from "../../store/auth-context";
-function Profile() {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
+function Profile(props) {
   const passwordInputRef = useRef();
   const email = localStorage.getItem("email");
-  function changePasswordHandler(event) {
-    event.preventDefault();
 
+  function changePassword(event) {
+    event.preventDefault();
     const enteredPassword = passwordInputRef.current.value;
-    setIsLoading(true);
-
-    fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBLE6k0sY-L7TgAelfb-Jtmc6tf2dXLJN8",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          idToken: localStorage.getItem("token"),
-          password: enteredPassword,
-          returnSecureToken: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res) => {
-        setIsLoading(false);
-        
-        console.log(res);
-        if (res.ok) {
-          return res.json();
-        } else {
-          res.json().then((data) => {
-            let errorMessage = "Authentication failed!";
-            throw new Error(errorMessage);
-          });
-        }
-      })
-      .then((data) => {
-        console.log("Data" + data);
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
-        authCtx.login(
-          data.idToken,
-          expirationTime.toISOString(),
-          data.localId,
-          data.email
-        );
-        navigate("/");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    const userData = {
+      token: localStorage.getItem("token"),
+      enteredPassword: enteredPassword,
+    };
+    if (window.confirm("Are you sure you want to CHANGE your password? ")) {
+      props.onChange(userData);
+    }
   }
-  function deleteAccountHandler(event) {
+
+  function deleteAccount(event) {
     event.preventDefault();
-    alert("Deleting your account");
+    const userData = {
+      token: localStorage.getItem("token"),
+    };
+    if (
+      window.confirm(
+        "Are you sure you want to DELETE your ACCOUNT? It will be lost forever! Also, all of your images will be DELETED FOREVER"
+      )
+    ) {
+      props.onDelete(userData);
+    }
   }
   return (
     <div className="container p-5 ">
@@ -70,7 +36,7 @@ function Profile() {
         profile :)
       </h2>
 
-      <form onSubmit={changePasswordHandler}>
+      <form onSubmit={changePassword}>
         <div className="form-group row">
           <label htmlFor="staticEmail" className="col-sm-2 col-form-label">
             Email
@@ -105,7 +71,7 @@ function Profile() {
           </div>
         </div>
       </form>
-      <form onSubmit={deleteAccountHandler}>
+      <form onSubmit={deleteAccount}>
         <button type="submit" className="btn btn-danger px-4 mt-5">
           DELETE YOUR ACCOUNT
         </button>

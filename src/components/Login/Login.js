@@ -11,8 +11,8 @@ function Login(props) {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    setIsLoading(true);
-
+      /*setIsLoading(true);*/
+    
     const userData = {
       email: enteredEmail,
       password: enteredPassword,
