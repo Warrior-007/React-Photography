@@ -17,6 +17,8 @@ const AllPictures = () => {
           url: picturesObj[key].url,
           category: picturesObj[key].category,
           creatorId: picturesObj[key].creatorId,
+          likes: picturesObj[key].likes,
+          dislikes: picturesObj[key].dislikes,
         });
       }
       setPictures(loadedPictures);
@@ -42,6 +44,8 @@ const AllPictures = () => {
         url={picture.url}
         category={picture.category}
         creatorId={picture.creatorId}
+        likes = {picture.likes}
+        dislikes = {picture.dislikes}
       />
     ));
 
@@ -49,8 +53,7 @@ const AllPictures = () => {
     <>
       <div className="album py-5 bg-light">
         <div className="container justify-content-center image-name">
-        <h1 className="mb-5">All Images
-        </h1>
+          <h1 className="mb-5">All Images</h1>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {picturesList}
           </div>

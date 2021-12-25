@@ -1,17 +1,19 @@
-.image-name h1 { text-align: center;}
-.image-home img{
-    width: 100%
+.image-name h1 {
+  text-align: center;
+}
+.image-home img {
+  width: 100%;
 }
 #modalSignin {
   background-color: #212529;
 }
-.card-text{
+.card-text {
   color: black;
   transition: 0.2s;
   cursor: pointer;
 }
-.card-text:hover{
-color: gold
+.card-text:hover {
+  color: gold;
 }
 .b-example-divider {
   height: 3rem;
@@ -90,16 +92,33 @@ a:hover {
 .fab {
   color: black;
   transition: 0.2s;
+  cursor: "pointer" I !important;
 }
-.fab:hover{
+.far {
+  color: black;
+  transition: 0.2s;
+  cursor: "pointer" I !important;
+}
+.fas {
+  color: black;
+  transition: 0.2s;
+  cursor: "pointer" I !important;
+}
+.fab:hover {
   cursor: pointer;
   color: gold !important;
 }
-.fa-trash{
+.fa-trash {
   color: red;
 }
 .fa-edit {
-  color: green
+  color: green;
+}
+.fa-thumbs-down:hover {
+  color: red;
+}
+.fa-thumbs-up:hover {
+  color: green;
 }
 .rounded-4 {
   border-radius: 0.5rem;
@@ -198,7 +217,7 @@ a:hover {
   /* you need to match the shadow color to your background or image border for the desired effect*/
   box-shadow: 0 0 8px 8px white inset;
 }
-#search-bar{
+#search-bar {
   width: 300px;
   z-index: 999;
   margin: 0 15px;
