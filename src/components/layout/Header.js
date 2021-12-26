@@ -36,6 +36,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     authCtx.logout();
+    navigate("/");
   };
 
   const handleOnSelect = (item) => {

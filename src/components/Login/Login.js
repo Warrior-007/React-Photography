@@ -1,9 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
-import LoadingSpinner from "../Layout/LoadingSpinner";
+/*import LoadingSpinner from "../Layout/LoadingSpinner";*/
 
 function Login(props) {
-  const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -11,8 +10,8 @@ function Login(props) {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-      /*setIsLoading(true);*/
-    
+    /*setIsLoading(true);*/
+
     const userData = {
       email: enteredEmail,
       password: enteredPassword,
@@ -67,8 +66,9 @@ function Login(props) {
                 className="w-100 mb-2 btn btn-lg rounded-4 btn-warning"
                 type="submit"
               >
-                {!isLoading && "Login"}
-                {isLoading && <LoadingSpinner />}
+                Login
+                {/*!isLoading && "Login"}
+                {isLoading && <LoadingSpinner />*/}
               </button>
             </form>
           </div>

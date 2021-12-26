@@ -3,103 +3,124 @@ import { useState, useEffect } from "react";
 import useHttp from "../../hooks/use-http";
 
 const PicturePreview = (props) => {
+  const navigate = useNavigate();
+  const { sendRequest: deletePictureRequest } = useHttp();
+  const { sendRequest: likePictureRequest } = useHttp();
+
   const [likes, setLikes] = useState();
   const [liked, setLiked] = useState();
-  const [dislikes, setDislikes] = useState();
 
+  const [dislikes, setDislikes] = useState();
   const [disliked, setDisliked] = useState();
-  const navigate = useNavigate();
+
   const userId = localStorage.getItem("userId");
   const imageCreatorId = props.creatorId;
 
-  const { sendRequest: fetchPicture } = useHttp();
-
   let isUserTheOwner = false;
-
   if (userId === imageCreatorId) {
     isUserTheOwner = true;
   }
+
   useEffect(() => {
-    const transformPictures = (picturesObj) => {
-      let likesAndDislikes = {
-        likes: picturesObj.likes,
-        dislikes: picturesObj.dislikes,
-      };
-      let counterLikes = 0;
-      let counterDislikes = 0;
-      for (const key in likesAndDislikes.likes) {
-        if (likesAndDislikes.likes[key] === userId) {
-          setLiked(true);
-        }
-        counterLikes++;
+    let counterLikes = 0;
+    let counterDislikes = 0;
+    for (const key in props.likes) {
+      if (key === userId) {
+        setLiked(true);
       }
-      for (const key in likesAndDislikes.dislikes) {
-        if (likesAndDislikes.dislikes[key] === userId) {
-          setDisliked(true);
-        }
-        counterDislikes++;
+      counterLikes++;
+    }
+    for (const key in props.dislikes) {
+      if (key === userId) {
+        setDisliked(true);
       }
-      setLikes(counterLikes);
-      setDislikes(counterDislikes);
-    };
-    fetchPicture(
-      {
-        url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}.json`,
-      },
-      transformPictures
-    );
-  }, [fetchPicture, props.id, userId]);
+      counterDislikes++;
+    }
+    setLikes(counterLikes);
+    setDislikes(counterDislikes);
+  }, [props.dislikes, props.likes, userId]);
+
   const deleteHandler = () => {
     if (
       window.confirm(
         "Are you sure you want to DELETE this image? It will be lost forever!"
       )
     ) {
-      fetch(
-        `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}.json`,
-        {
-          method: "DELETE",
-        }
-      );
+      deletePictureRequest({
+        url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}.json`,
+        method: "DELETE",
+      });
+
       navigate(`/`);
     }
   };
   const likeHandler = () => {
-    fetch(
-      `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/likes.json`,
-      {
-        method: "POST",
-        body: JSON.stringify(userId),
-        header: {
-          "Content-Type": "application/json",
-        },
+    if (userId) {
+      if (disliked) {
+        likePictureRequest({
+          url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/dislikes/${userId}.json`,
+          method: "DELETE",
+        });
+        setDislikes(dislikes - 1);
+        setDisliked(false);
       }
-    );
-    liked(true);
+      if (!liked) {
+        likePictureRequest({
+          url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/likes/${userId}.json`,
+          method: "PUT",
+          body: { userId: userId },
+          header: {
+            "Content-Type": "application/json",
+          },
+        });
+        setLikes(likes + 1);
+        setLiked(true);
+      } else {
+        if (liked) {
+          likePictureRequest({
+            url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/likes/${userId}.json`,
+            method: "DELETE",
+          });
+
+          setLiked(false);
+          setLikes(likes - 1);
+        }
+      }
+    }
   };
   const dislikeHandler = () => {
-    fetch(
-      `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/dislikes.json`,
-      {
-        method: "POST",
-        body: JSON.stringify(userId),
-        header: {
-          "Content-Type": "application/json",
-        },
+    if (userId) {
+      if (liked) {
+        likePictureRequest({
+          url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/likes/${userId}.json`,
+          method: "DELETE",
+        });
+
+        setLiked(false);
+        setLikes(likes - 1);
       }
-    );
-    disliked(true);
-    
-  };
-  const removeLikeHandler = () => {
-    fetch(
-      `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/likes/${userId}.json`,
-      {
-        method: "DELETE"
+      if (!disliked) {
+        likePictureRequest({
+          url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/dislikes/${userId}.json`,
+          method: "PUT",
+          body: { userId: userId },
+          header: {
+            "Content-Type": "application/json",
+          },
+        });
+        setDislikes(dislikes + 1);
+        setDisliked(true);
+      } else {
+        likePictureRequest({
+          url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/dislikes/${userId}.json`,
+          method: "DELETE",
+        });
+        setDislikes(dislikes - 1);
+        setDisliked(false);
       }
-    );
+    }
   };
-  const removeDislikeHandler = () => {};
+
   return (
     <div
       className="col"
@@ -118,14 +139,14 @@ const PicturePreview = (props) => {
         <div className="card-body row">
           {!isUserTheOwner && (
             <>
-              <div className="col-7">
+              <div className="col-5">
                 <p className="card-text">{props.name}</p>
               </div>
               <div className="col-1">
                 {liked && (
                   <i
                     className="fas fa-thumbs-up"
-                    onClick={removeLikeHandler}
+                    onClick={likeHandler}
                     style={{ color: `blue` }}
                   ></i>
                 )}
@@ -133,7 +154,7 @@ const PicturePreview = (props) => {
                   <i className="far fa-thumbs-up" onClick={likeHandler}></i>
                 )}
               </div>
-              <div className="col-1">{likes}</div>
+              <div className="col-2">{likes}</div>
               <div className="col-1">
                 {!disliked && (
                   <i
@@ -144,12 +165,12 @@ const PicturePreview = (props) => {
                 {disliked && (
                   <i
                     className="fas fa-thumbs-down"
-                    onClick={removeDislikeHandler}
+                    onClick={dislikeHandler}
                     style={{ color: `blue` }}
                   ></i>
                 )}
               </div>
-              <div className="col-1">{dislikes}</div>
+              <div className="col-2">{dislikes}</div>
             </>
           )}
 
