@@ -19,6 +19,7 @@ const AllPictures = () => {
           creatorId: picturesObj[key].creatorId,
           likes: picturesObj[key].likes,
           dislikes: picturesObj[key].dislikes,
+          isThisCategory: false
         });
       }
       setPictures(loadedPictures);

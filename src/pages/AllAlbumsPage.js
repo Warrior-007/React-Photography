@@ -22,6 +22,7 @@ const AllAlbumsPage = () => {
           id: key,
           url: picturesObj[key].url,
           category: picturesObj[key].category,
+          isThisCategory: true
         });
       }
       setAlbum(loadedAlbums);
@@ -42,6 +43,7 @@ const AllAlbumsPage = () => {
       id={picture.id}
       url={picture.url}
       name={picture.category}
+      isThisCategory={picture.isThisCategory}
     />
   ));
 

@@ -24,6 +24,8 @@ const AlbumPage = () => {
             url: picturesObj[key].url,
             category: picturesObj[key].category,
             creatorId: picturesObj[key].creatorId,
+            likes: picturesObj[key].likes,
+            dislikes: picturesObj[key].dislikes,
           });
         }
       }
@@ -39,17 +41,18 @@ const AlbumPage = () => {
   }, [fetchPictures, category]);
 
   const picturesList = pictures.map((picture) => (
-
-      <PicturePreview
-        isLoading={isLoading}
-        link={`/image-information/${picture.id}`}
-        key={picture.id}
-        id={picture.id}
-        name={picture.name}
-        url={picture.url}
-        category={picture.category}
-        creatorId={picture.creatorId}
-      />
+    <PicturePreview
+      isLoading={isLoading}
+      link={`/image-information/${picture.id}`}
+      key={picture.id}
+      id={picture.id}
+      name={picture.name}
+      url={picture.url}
+      category={picture.category}
+      creatorId={picture.creatorId}
+      likes={picture.likes}
+      dislikes={picture.dislikes}
+    />
   ));
   return (
     <>

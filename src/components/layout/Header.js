@@ -93,6 +93,7 @@ const Header = () => {
           <div id="search-bar">
             <ReactSearchAutocomplete
               items={items}
+              maxResults={3}
               onSelect={handleOnSelect}
               placeholder="Looking for something 👀?"
             />
@@ -116,8 +117,11 @@ const Header = () => {
             {isLoggedIn && (
               <>
                 <Link to="/profile">
-                  <button type="button" className="btn btn-outline-warning me-2">
-                    Hello {email}
+                  <button
+                    type="button"
+                    className="btn btn-outline-warning me-2"
+                  >
+                    Hello, {email}
                   </button>
                 </Link>
                 <button
