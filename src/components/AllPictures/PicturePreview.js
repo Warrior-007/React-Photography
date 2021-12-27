@@ -281,8 +281,40 @@ const PicturePreview = (props) => {
           )}
           {isUserTheOwner && (
             <>
-              <div className="col-8">
+              <div className="col-4">
                 <p className="card-text">{props.name}</p>
+              </div>
+              <div className="col-2">
+                <div className="dropdown">
+                  <button
+                    className="btn btn-outline-success btn-sm dropdown-toggle"
+                    type="button"
+                    id={props.id}
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {likes}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby={props.id}>
+                    {dropdownLikes}
+                  </ul>
+                </div>
+              </div>
+              <div className="col-2">
+                <div className="dropdown">
+                  <button
+                    className="btn btn-outline-danger btn-sm dropdown-toggle"
+                    type="button"
+                    id={props.id}
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {dislikes}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby={props.id}>
+                    {dropdownDislikes}
+                  </ul>
+                </div>
               </div>
               <div className="col-2">
                 <Link

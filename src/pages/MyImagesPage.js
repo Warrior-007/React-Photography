@@ -18,6 +18,9 @@ const MyImagesPage = () => {
             url: picturesObj[key].url,
             category: picturesObj[key].category,
             creatorId: picturesObj[key].creatorId,
+
+            likes: picturesObj[key].likes,
+            dislikes: picturesObj[key].dislikes,
           });
         }
       }
@@ -43,6 +46,8 @@ const MyImagesPage = () => {
       url={picture.url}
       category={picture.category}
       creatorId={picture.creatorId}
+      likes={picture.likes}
+      dislikes={picture.dislikes}
     />
   ));
 
