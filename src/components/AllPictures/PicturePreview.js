@@ -95,6 +95,14 @@ const PicturePreview = (props) => {
         });
         setDislikes(dislikes - 1);
         setDisliked(false);
+
+        let usersDislikedArray = usersDisliked;
+
+        var index = usersDislikedArray.indexOf(email);
+        if (index !== -1) {
+          usersDislikedArray.splice(index, 1);
+        }
+        setUserDisliked(usersDislikedArray);
       }
       if (!liked) {
         likePictureRequest({
@@ -107,16 +115,25 @@ const PicturePreview = (props) => {
         });
         setLikes(likes + 1);
         setLiked(true);
-      } else {
-        if (liked) {
-          likePictureRequest({
-            url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/likes/${userId}.json`,
-            method: "DELETE",
-          });
 
-          setLiked(false);
-          setLikes(likes - 1);
+        let usersLikedArray = usersLiked;
+        usersLikedArray.push(email);
+        setUserLiked(usersLikedArray);
+      } else {
+        likePictureRequest({
+          url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/likes/${userId}.json`,
+          method: "DELETE",
+        });
+
+        setLiked(false);
+        setLikes(likes - 1);
+
+        let usersLikedArray = usersLiked;
+        let index = usersLikedArray.indexOf(email);
+        if (index !== -1) {
+          usersLikedArray.splice(index, 1);
         }
+        setUserLiked(usersLikedArray);
       }
     }
   };
@@ -130,6 +147,13 @@ const PicturePreview = (props) => {
 
         setLiked(false);
         setLikes(likes - 1);
+
+        let usersLikedArray = usersLiked;
+        let index = usersLikedArray.indexOf(email);
+        if (index !== -1) {
+          usersLikedArray.splice(index, 1);
+        }
+        setUserLiked(usersLikedArray);
       }
       if (!disliked) {
         likePictureRequest({
@@ -140,15 +164,28 @@ const PicturePreview = (props) => {
             "Content-Type": "application/json",
           },
         });
+
         setDislikes(dislikes + 1);
         setDisliked(true);
+
+        let usersDislikedArray = usersDisliked;
+        usersDislikedArray.push(email);
+        setUserDisliked(usersDislikedArray);
       } else {
         likePictureRequest({
           url: `https://react-photography-default-rtdb.europe-west1.firebasedatabase.app/pictures/${props.id}/dislikes/${userId}.json`,
           method: "DELETE",
         });
+
         setDislikes(dislikes - 1);
         setDisliked(false);
+
+        let usersDislikedArray = usersDisliked;
+        let index = usersDislikedArray.indexOf(email);
+        if (index !== -1) {
+          usersDislikedArray.splice(index, 1);
+        }
+        setUserDisliked(usersDislikedArray);
       }
     }
   };
@@ -194,9 +231,9 @@ const PicturePreview = (props) => {
                 )}
               </div>
               <div className="col-2">
-                <div class="dropdown">
+                <div className="dropdown">
                   <button
-                    class="btn btn-light btn-sm dropdown-toggle"
+                    className="btn btn-light btn-sm dropdown-toggle"
                     type="button"
                     id={props.id}
                     data-bs-toggle="dropdown"
@@ -204,7 +241,7 @@ const PicturePreview = (props) => {
                   >
                     {likes}
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby={props.id}>
+                  <ul className="dropdown-menu" aria-labelledby={props.id}>
                     {dropdownLikes}
                   </ul>
                 </div>
@@ -225,9 +262,9 @@ const PicturePreview = (props) => {
                 )}
               </div>
               <div className="col-2">
-                <div class="dropdown">
+                <div className="dropdown">
                   <button
-                    class="btn btn-light btn-sm dropdown-toggle"
+                    className="btn btn-light btn-sm dropdown-toggle"
                     type="button"
                     id={props.id}
                     data-bs-toggle="dropdown"
@@ -235,7 +272,7 @@ const PicturePreview = (props) => {
                   >
                     {dislikes}
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby={props.id}>
+                  <ul className="dropdown-menu" aria-labelledby={props.id}>
                     {dropdownDislikes}
                   </ul>
                 </div>
