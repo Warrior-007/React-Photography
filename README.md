@@ -2,21 +2,23 @@
 
 The project idea is to upload and share your images with the others
 
+## [Official Application Link](https://react-photography.web.app/)
+
 ## Main roles in the project
 
-1. Guests:
+### Guests:
+
 - Have access to the catalog page, with the all uploaded images inside.
 - Have access to the "Details" section of each image.
 - Have access to each category and can see all images in the respective category.
 - Have access to the App's search engine.
 - Can see who Liked/Disliked the images.
 - Can Register and Login to the App
-
-- Cannot Like/Dislike images. 
-- Cannot Upload images to the App`s Database.
+- Cannot Like/Dislike images.
+- Cannot Upload images to the App's Datebase.
 - Cannot Edit images.
 
-2. Registered users in addition:
+### Registered users in addition:
 - Can Like/Dislike images. 
 - Can Upload images to the App`s Database.
 - Can View and Edit their own images.
@@ -28,4 +30,3 @@ The project idea is to upload and share your images with the others
 - [Bootstrap](https://getbootstrap.com/)
 - [Firebase Database](https://firebase.google.com/)
 
-## [Official Application Link](https://react-photography.web.app/)
